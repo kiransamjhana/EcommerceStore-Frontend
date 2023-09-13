@@ -51,11 +51,12 @@ export const getProducts = () => {
   return axiosProcessor(obj);
 };
 
-export const getProductByCategoryId = () => {
+export const getProductByCategoryId = (_id) => {
   const obj = {
     method: "get",
-    url: productAPI,
+    url: productAPI + "/category/:_id?",
   };
+  console.log(obj);
   return axiosProcessor(obj);
 };
 

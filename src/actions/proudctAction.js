@@ -24,8 +24,8 @@ export const getProductByIdAction = (_id) => async (dispatch) => {
 };
 
 export const getProductByCategoryIdAction = (_id) => async (dispatch) => {
-  const { status, products } = await getProductByCategoryId();
-
+  const { status, products, categories } = await getProductByCategoryId(_id);
+  console.log(categories);
   if (status === "success") {
     /// mount data in the store
     dispatch(setProduct(products));

@@ -5,12 +5,15 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getCatsAction } from "./actions/categoryAction";
 
-import { getProductsAction } from "./actions/proudctAction";
+import {
+  getProductByCategoryIdAction,
+  getProductsAction,
+} from "./actions/proudctAction";
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCatsAction());
-    dispatch(getProductsAction());
+    dispatch(getProductByCategoryIdAction());
   }, [dispatch]);
 
   return (

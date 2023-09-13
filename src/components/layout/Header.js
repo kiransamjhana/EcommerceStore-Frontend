@@ -1,9 +1,14 @@
-import React from "react";
-import { useSelector } from "react-redux";
-
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getProductByCategoryIdAction } from "../../actions/proudctAction";
+import { Link } from "react-router-dom";
 export const Header = () => {
   const { cats } = useSelector((state) => state.catInfo);
   console.log(cats);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getProductByCategoryIdAction());
+  }, [dispatch]);
 
   return (
     <div>
@@ -30,11 +35,9 @@ export const Header = () => {
                 {cats?.map((item, i) => {
                   return (
                     <li key={i}>
-                      <a
-                        class="text-gray-500 transition hover:text-gray-500/75"
-                        href="/"
-                      >
+                      <a class="text-gray-500 transition hover:text-gray-500/75">
                         {item.title}
+                        {getProductByCategoryIdAction()}
                       </a>
                     </li>
                   );

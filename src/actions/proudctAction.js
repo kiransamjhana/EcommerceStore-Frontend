@@ -23,11 +23,11 @@ export const getProductByIdAction = (_id) => async (dispatch) => {
   }
 };
 
-export const getProductByCategoryIdAction = (_id) => async (dispatch) => {
-  const { status, products, categories } = await getProductByCategoryId(_id);
-  console.log(categories);
+export const getProductByCategoryIdAction = () => async (dispatch) => {
+  const { status, product, message } = await getProductByCategoryId();
+  console.log(product);
   if (status === "success") {
     /// mount data in the store
-    dispatch(setProduct(products));
+    dispatch(setProduct(product));
   }
 };

@@ -5,16 +5,12 @@ import { Link } from "react-router-dom";
 export const Header = () => {
   const { cats } = useSelector((state) => state.catInfo);
   console.log(cats);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getProductByCategoryIdAction());
-  }, [dispatch]);
 
   return (
     <div>
       <header class="bg-white">
         <div class="mx-auto flex h-16 max-w-screen-3xl items-center gap-8 px-4 sm:px-6 lg:px-8">
-          <a class="block text-teal-600" href="/">
+          <Link class="block text-teal-600" href="/">
             <span class="sr-only">Home</span>
             <svg
               class="h-8"
@@ -27,7 +23,7 @@ export const Header = () => {
                 fill="currentColor"
               />
             </svg>
-          </a>
+          </Link>
 
           <div class="flex flex-1 items-center justify-end md:justify-between">
             <nav aria-label="Global" class="hidden md:block">
@@ -35,10 +31,12 @@ export const Header = () => {
                 {cats?.map((item, i) => {
                   return (
                     <li key={i}>
-                      <a class="text-gray-500 transition hover:text-gray-500/75">
+                      <Link
+                        to={`/category/${item.slug}/${item._id}`}
+                        class="text-gray-500 transition hover:text-gray-500/75"
+                      >
                         {item.title}
-                        {getProductByCategoryIdAction()}
-                      </a>
+                      </Link>
                     </li>
                   );
                 })}
@@ -80,7 +78,7 @@ export const Header = () => {
                 </button>
               </div>
 
-              <a
+              <Link
                 href="#"
                 className="block shrink-0 rounded-full bg-white p-2.5 text-gray-600 shadow-sm hover:text-gray-700"
               >
@@ -99,24 +97,24 @@ export const Header = () => {
                     d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
                   />
                 </svg>
-              </a>
+              </Link>
             </div>
 
             <div class="flex items-center gap-4">
               <div class="sm:flex sm:gap-4">
-                <a
+                <Link
                   class="block rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700"
                   href="/"
                 >
                   Login
-                </a>
+                </Link>
 
-                <a
+                <Link
                   class="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block"
                   href="/"
                 >
                   Register
-                </a>
+                </Link>
               </div>
 
               <button class="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden">

@@ -29,7 +29,7 @@ export const getCategories = () => {
     method: "get",
     url: categoryAPI,
   };
-  console.log(obj);
+
   return axiosProcessor(obj);
 };
 export const getCategoryById = (_id) => {
@@ -47,16 +47,17 @@ export const getProducts = () => {
     method: "get",
     url: productAPI,
   };
-  console.log(obj);
+
   return axiosProcessor(obj);
 };
 
-export const getProductByCategoryId = (_id) => {
+export const getProductByCategoryId = (object) => {
   const obj = {
     method: "get",
-    url: productAPI + "/category/:_id?",
+    url: productAPI + "/category/" + object.obj,
   };
-  console.log(obj);
+  console.log(object);
+
   return axiosProcessor(obj);
 };
 
@@ -64,7 +65,7 @@ export const getProductById = (_id) => {
   console.log(_id);
   const obj = {
     method: "get",
-    url: productAPI,
+    url: productAPI + "/" + _id,
   };
   return axiosProcessor(obj);
 };

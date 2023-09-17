@@ -12,6 +12,7 @@ import {
 import { ProductCategory } from "./pages/product/ProductCategory";
 import { Route, Routes } from "react-router-dom";
 import { ProductLanding } from "./pages/product/product";
+import { CartPage } from "./pages/cart/CartPage";
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -24,6 +25,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/category/:slug?/:_id?" element={<ProductCategory />} />
         <Route path="/product/:slug/:_id?" element={<ProductLanding />} />
+        <Route path="/cart" element={<CartPage />} />
       </Routes>
     </div>
   );

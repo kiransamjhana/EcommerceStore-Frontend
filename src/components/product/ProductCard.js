@@ -3,25 +3,29 @@ import { Link } from "react-router-dom";
 
 export const ProductCard = ({ item }) => {
   return (
-    <Link to={"/product/" + item.slug + "/" + item._id}>
-      <div key={item._id} className="lg:w-1/4 md:w-1/2 p-4 w-full">
-        <a className="block relative h-48 rounded overflow-hidden">
-          <img
-            alt="ecommerce"
-            className="object-cover object-center w-full h-full block"
-            src={process.env.REACT_APP_ROOTSERVER + item?.thumbnail?.slice(6)}
-          />
-        </a>
-        <div className="mt-4">
-          <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">
-            {item.title}
+    <li>
+      <Link
+        to={`/product/${item.slug}/${item._id}`}
+        className="block overflow-hidden group"
+      >
+        <img
+          src={process.env.REACT_APP_ROOTSERVER + item.thumbnail?.slice(6)}
+          alt=""
+          className="h-[350px] w-full  object-contain transition duration-500 group-hover:scale-105 sm:h-[450px]"
+        />
+
+        <div className="relative pt-3 bg-white">
+          <h3 className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4">
+            {item.name}
           </h3>
-          <h2 className="text-gray-900 title-font text-lg font-medium">
-            {item.slug}
-          </h2>
-          <p className="mt-1">{item.price}</p>
+
+          <p className="mt-2">
+            <span className="sr-only">{item.name} </span>
+
+            <span className="tracking-wider text-gray-900">${item.price}</span>
+          </p>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </li>
   );
 };

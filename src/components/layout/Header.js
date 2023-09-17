@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductByCategoryIdAction } from "../../actions/proudctAction";
 import { Link } from "react-router-dom";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 export const Header = () => {
   const { cats } = useSelector((state) => state.catInfo);
   console.log(cats);
@@ -10,7 +11,7 @@ export const Header = () => {
     <div>
       <header class="bg-white">
         <div class="mx-auto flex h-16 max-w-screen-3xl items-center gap-8 px-4 sm:px-6 lg:px-8">
-          <Link class="block text-teal-600" href="/">
+          <Link class="block text-teal-600" to={"/"}>
             <span class="sr-only">Home</span>
             <svg
               class="h-8"
@@ -79,24 +80,11 @@ export const Header = () => {
               </div>
 
               <Link
-                href="#"
+                to={"/cart"}
                 className="block shrink-0 rounded-full bg-white p-2.5 text-gray-600 shadow-sm hover:text-gray-700"
               >
                 <span className="sr-only">Notifications</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-                  />
-                </svg>
+                <AiOutlineShoppingCart />
               </Link>
             </div>
 

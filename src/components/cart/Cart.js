@@ -17,6 +17,11 @@ export const Cart = () => {
     dispatch(removeItemFromCart());
   };
 
+  const totalAmount = cart.reduce((acc, curr) => {
+    return acc + curr.price;
+  }, 0);
+  let discount = (20 / 100) * totalAmount;
+  let excludeDecimalDiscont = Math.floor(discount);
   // useEffect(() => {
   //   dispatch(setCart(qty));
   // }, [qty]);
@@ -111,8 +116,8 @@ export const Cart = () => {
                 <div className="w-screen max-w-lg space-y-4">
                   <dl className="space-y-0.5 text-sm text-gray-700">
                     <div className="flex justify-between">
-                      <dt>Subtotal</dt>
-                      <dd>£250</dd>
+                      <dt>Discount</dt>
+                      <dd>{excludeDecimalDiscont}</dd>
                     </div>
 
                     {/* <div className="flex justify-between">
@@ -122,11 +127,16 @@ export const Cart = () => {
 
                     <div className="flex justify-between !text-base font-medium">
                       <dt>Total</dt>
-                      <dd> 444</dd>
+                      <dd> {totalAmount - excludeDecimalDiscont}</dd>
                     </div>
                   </dl>
 
-                  <div className="flex justify-end">
+                  <div className="flex flex-col items-center gap-4 rounded-lg bg-green-300 p-6 shadow-lg sm:flex-row sm:justify-between">
+                    <strong className="text-xl text-black sm:text-xl">
+                      Congratulations you have saved AUD{excludeDecimalDiscont}$
+                    </strong>
+                  </div>
+                  {/* <div className="flex justify-end">
                     <span className="inline-flex items-center justify-center rounded-full bg-indigo-100 px-2.5 py-0.5 text-indigo-700">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -143,7 +153,7 @@ export const Cart = () => {
                         />
                       </svg>
                     </span>
-                  </div>
+                  </div> */}
 
                   <div className="flex justify-end">
                     <a

@@ -1,29 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setCart } from "../../redux/cartSlice";
+import { removeItemFromCart } from "../../redux/cartSlice";
+import { Header } from "../layout/Header";
+import { Footer } from "../layout/Footer";
 
 export const Cart = () => {
   const { cart } = useSelector((state) => state.cartInfo);
-  const [qty, setQty] = useState([]);
+  // const [qty, setQty] = useState([]);
   const dispatch = useDispatch();
-  const handleOnChange = (e) => {
-    const { name, value } = e.target;
+  // const handleOnChange = (e) => {
+  //   const { name, value } = e.target;
 
-    setQty({ ...qty, [name]: value });
+  //   setQty({ ...qty, [name]: value });
+  // };
+  const handleOnDelete = () => {
+    dispatch(removeItemFromCart());
   };
 
-  useEffect(() => {
-    dispatch(setCart(qty));
-  }, [qty]);
+  // useEffect(() => {
+  //   dispatch(setCart(qty));
+  // }, [qty]);
 
   return (
     <div>
-      {/*
-  Heads up! 👋
-
-  Plugins:
-    - @tailwindcss/forms
-*/}
+      <Header />
 
       <section>
         <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
@@ -49,25 +49,42 @@ export const Cart = () => {
                       />
 
                       <div>
-                        <h3 className="text-sm text-gray-900">{item.name}</h3>
-                      </div>
+                        <h3 className="text-sm text-gray-900">
+                          {item.name} ${item.price}
+                        </h3>
 
-                      <div>
-                        <h2 className="text-sm text-gray-900">{item.price}</h2>
+                        <h1 className="text-sm text-gray-900"></h1>
                       </div>
 
                       <div className="flex flex-1 items-center justify-end gap-4">
                         <form>
-                          <label for="cars">Qty</label>
-                          <br />
-                          <input
-                            type="number"
-                            onChange={handleOnChange}
-                            name="qty"
-                          />
+                          <div>
+                            <label
+                              htmlFor="HeadlineAct"
+                              className="block text-sm font-medium text-gray-900"
+                            >
+                              Qty
+                            </label>
+
+                            <select
+                              name="quantity"
+                              id="quantity"
+                              className="mt-1.5 w-full rounded-lg text-gray-700 sm:text-sm"
+                            >
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                              <option value="6">6</option>
+                            </select>
+                          </div>
                         </form>
 
-                        <button className="text-gray-600 transition hover:text-red-600">
+                        <button
+                          className="text-gray-600 transition hover:text-red-600"
+                          onClick={handleOnDelete}
+                        >
                           <span className="sr-only">Remove item</span>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -98,14 +115,14 @@ export const Cart = () => {
                       <dd>£250</dd>
                     </div>
 
-                    <div className="flex justify-between">
-                      <dt>VAT</dt>
+                    {/* <div className="flex justify-between">
+                      <dt>GST</dt>
                       <dd>£25</dd>
-                    </div>
+                    </div> */}
 
                     <div className="flex justify-between !text-base font-medium">
                       <dt>Total</dt>
-                      <dd>£200</dd>
+                      <dd> 444</dd>
                     </div>
                   </dl>
 
@@ -142,6 +159,7 @@ export const Cart = () => {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 };

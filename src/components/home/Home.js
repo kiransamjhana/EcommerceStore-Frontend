@@ -3,6 +3,7 @@ import { Header } from "../layout/Header";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductsAction } from "../../actions/proudctAction";
 import { ProductCard } from "../product/ProductCard";
+import { Footer } from "../layout/Footer";
 
 export const Home = () => {
   const dispatch = useDispatch();
@@ -34,6 +35,8 @@ export const Home = () => {
           </ul>
         </div>
       </section>
+
+      <Footer />
     </>
   );
 };

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeItemFromCart } from "../../redux/cartSlice";
 import { Header } from "../layout/Header";
 import { Footer } from "../layout/Footer";
+import { Link } from "react-router-dom";
 
 export const Cart = () => {
   const { cart } = useSelector((state) => state.cartInfo);
@@ -130,7 +131,6 @@ export const Cart = () => {
                       <dd> {totalAmount - excludeDecimalDiscont}</dd>
                     </div>
                   </dl>
-
                   <div className="flex flex-col items-center gap-4 rounded-lg bg-green-300 p-6 shadow-lg sm:flex-row sm:justify-between">
                     <strong className="text-xl text-black sm:text-xl">
                       Congratulations you have saved AUD{excludeDecimalDiscont}$
@@ -153,15 +153,14 @@ export const Cart = () => {
                         />
                       </svg>
                     </span>
-                  </div> */}
-
+                  </div> */}{" "}
                   <div className="flex justify-end">
-                    <a
-                      href="#"
+                    <Link
+                      to="/checkout"
                       className="block rounded bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600"
                     >
                       Checkout
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>

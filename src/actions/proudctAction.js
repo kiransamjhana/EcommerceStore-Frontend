@@ -7,6 +7,7 @@ import { setProduct } from "../redux/productSlice";
 
 export const getProductsAction = () => async (dispatch) => {
   const { status, products } = await getProducts();
+  console.log(products);
 
   if (status === "success") {
     /// mount data in the store

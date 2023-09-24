@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 export const Header = () => {
   const { cats } = useSelector((state) => state.catInfo);
-  console.log(cats);
 
   return (
     <div>
@@ -98,8 +97,8 @@ export const Header = () => {
                 </Link>
 
                 <Link
+                  to="/register"
                   class="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block"
-                  href="/"
                 >
                   Register
                 </Link>

@@ -5,6 +5,7 @@ import axios from "axios";
 const rootAPI = process.env.REACT_APP_ROOTAPI;
 const categoryAPI = rootAPI + "/catagory";
 const productAPI = rootAPI + "/product";
+const paymentAPI = rootAPI + "/payment";
 
 // Global axios proccesser function
 const axiosProcessor = async ({ method, url, obj }) => {
@@ -29,6 +30,7 @@ export const getCategories = () => {
     method: "get",
     url: categoryAPI,
   };
+  console.log(obj);
 
   return axiosProcessor(obj);
 };
@@ -37,6 +39,7 @@ export const getCategoryById = (_id) => {
     method: "get",
     url: categoryAPI,
   };
+
   return axiosProcessor(obj);
 };
 
@@ -47,7 +50,7 @@ export const getProducts = () => {
     method: "get",
     url: productAPI,
   };
-
+  console.log(obj);
   return axiosProcessor(obj);
 };
 
@@ -56,7 +59,6 @@ export const getProductByCategoryId = (object) => {
     method: "get",
     url: productAPI + "/category/" + object.obj,
   };
-  console.log(object);
 
   return axiosProcessor(obj);
 };
@@ -67,5 +69,16 @@ export const getProductById = (_id) => {
     method: "get",
     url: productAPI + "/" + _id,
   };
+  return axiosProcessor(obj);
+};
+
+// Payment API
+
+export const getPayementOptons = () => {
+  const obj = {
+    method: "get",
+    url: paymentAPI,
+  };
+  console.log(obj);
   return axiosProcessor(obj);
 };

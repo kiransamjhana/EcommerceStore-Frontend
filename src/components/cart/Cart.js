@@ -14,8 +14,8 @@ export const Cart = () => {
 
   //   setQty({ ...qty, [name]: value });
   // };
-  const handleOnDelete = () => {
-    dispatch(removeItemFromCart());
+  const handleOnDelete = (_id) => {
+    dispatch(removeItemFromCart(_id));
   };
 
   const totalAmount = cart.reduce((acc, curr) => {
@@ -89,7 +89,9 @@ export const Cart = () => {
 
                         <button
                           className="text-gray-600 transition hover:text-red-600"
-                          onClick={handleOnDelete}
+                          onClick={() => {
+                            handleOnDelete(item._id);
+                          }}
                         >
                           <span className="sr-only">Remove item</span>
                           <svg

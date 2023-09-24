@@ -3,7 +3,7 @@ import { setCats } from "../redux/categorySlice";
 
 export const getCatsAction = () => async (dispatch) => {
   const { status, result } = await getCategories();
-  console.log(result);
+
   if (status === "success") {
     // mount in the state
     dispatch(setCats(result));
@@ -12,7 +12,7 @@ export const getCatsAction = () => async (dispatch) => {
 
 export const getCatsByIdAction = (_id) => async (dispatch) => {
   const { status, result } = await getCategoryById(_id);
-
+  console.log(result);
   if (status === "success") {
     // mount in the state
     dispatch(setCats(result));

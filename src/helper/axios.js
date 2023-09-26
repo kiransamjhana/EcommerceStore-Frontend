@@ -6,6 +6,7 @@ const rootAPI = process.env.REACT_APP_ROOTAPI;
 const categoryAPI = rootAPI + "/catagory";
 const productAPI = rootAPI + "/product";
 const paymentAPI = rootAPI + "/payment";
+const userAPI = rootAPI + "/user";
 
 // Global axios proccesser function
 const axiosProcessor = async ({ method, url, obj }) => {
@@ -80,5 +81,32 @@ export const getPayementOptons = () => {
     url: paymentAPI,
   };
   console.log(obj);
+  return axiosProcessor(obj);
+};
+
+//User API
+
+export const postNewUser = (data) => {
+  const obj = {
+    method: "post",
+    url: userAPI,
+    obj: data,
+  };
+  return axiosProcessor(obj);
+};
+
+export const getUserById = (_id) => {
+  const obj = {
+    method: "get",
+    url: userAPI,
+  };
+  return axiosProcessor(obj);
+};
+
+export const getAllUsers = () => {
+  const obj = {
+    method: "get",
+    url: userAPI,
+  };
   return axiosProcessor(obj);
 };

@@ -1,74 +1,19 @@
 import React, { useState } from "react";
 
-import { BiSolidUserDetail } from "react-icons/bi";
 import { Button, Form } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { CustomInput } from "../customInput/CustomInput";
+import { postNewUserAction } from "../../actions/userAction";
 
 export const SignUp = () => {
   const [form, setForm] = useState({});
-  const inputs = [
-    {
-      label: "First Name",
-      name: "fName",
-      required: true,
-      placeholder: "sam",
-      type: "text",
-    },
-    {
-      label: "Last Name",
-      name: "lName",
-      required: true,
-      placeholder: "sam",
-      type: "text",
-    },
-    {
-      label: "Phone Number",
-      name: "phone",
-      required: true,
-      placeholder: "044899444",
-      type: "number",
-    },
-
-    {
-      label: "Address",
-      name: "address",
-      required: true,
-      placeholder: "king street",
-      type: "text",
-    },
-    {
-      label: "Email",
-      name: "email",
-      required: true,
-      placeholder: "manandharkiran90@gmail.com",
-      type: "email",
-    },
-    {
-      label: "Password",
-      name: "password",
-      required: true,
-      placeholder: "*******",
-      type: "password",
-      minLength: "6",
-    },
-    {
-      label: "Confirm Password",
-      name: "confirmPassword",
-      required: true,
-      placeholder: "********",
-      type: "password",
-      minLength: "6",
-    },
-  ];
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    const { confirmPassword, ...rest } = form;
-    if (confirmPassword !== rest.password) {
+    const { confirmPassord, ...rest } = form;
+    if (confirmPassord !== rest.password) {
       return toast.error("Password should match");
     }
-    // createNewAdminAction(rest);
+    postNewUserAction(rest);
   };
   console.log(form);
 
@@ -78,6 +23,7 @@ export const SignUp = () => {
       ...form,
       [name]: value,
     });
+    console.log(form);
   };
 
   return (
@@ -98,130 +44,149 @@ export const SignUp = () => {
             </div>
             <div class="w-full mt-20 mr-0 mb-0 ml-0 relative z-10 max-w-2xl lg:mt-0 lg:w-5/12">
               <div
-                class="flex flex-col items-start justify-start pt-10 pr-10 pb-10 pl-10 bg-white shadow-2xl rounded-xl
-            relative z-10"
+                class="flex flex-col items-start justify-evenly gap-2 pt-10 pr-10 pb-10 pl-10 bg-white shadow-2xl rounded-xl
+            relative z-10 "
               >
                 <p class="w-full text-4xl font-medium text-center leading-snug font-serif">
                   Lets Create Your Account today
-                </p>
+                </p>{" "}
                 <div class="w-full mt-6 mr-0 mb-0 ml-0 relative space-y-8">
-                  <div class="relative">
-                    <p
-                      class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600
+                  <form onSubmit={handleOnSubmit}>
+                    <div class="relative">
+                      <p
+                        class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600
                   absolute"
-                    >
-                      First Name
-                    </p>
-                    <input
-                      placeholder="John"
-                      required
-                      type="text"
-                      class="border placeholder-gray-400 focus:outline-none
+                      >
+                        First Name
+                      </p>
+                      <input
+                        placeholder="John"
+                        required
+                        name="fName"
+                        onChange={handleOnChange}
+                        type="text"
+                        class="border placeholder-gray-400 focus:outline-none
                   focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
                   border-gray-300 rounded-md"
-                    />
-                  </div>
-                  <div class="relative">
-                    <p
-                      class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600
+                      />
+                    </div>
+                    <div class="relative">
+                      <p
+                        class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600
                   absolute"
-                    >
-                      Last Name
-                    </p>
-                    <input
-                      placeholder="John"
-                      required
-                      type="text"
-                      class="border placeholder-gray-400 focus:outline-none
+                      >
+                        Last Name
+                      </p>
+                      <input
+                        placeholder="John"
+                        required
+                        name="lName"
+                        onChange={handleOnChange}
+                        type="text"
+                        class="border placeholder-gray-400 focus:outline-none
                   focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
                   border-gray-300 rounded-md"
-                    />
-                  </div>
-                  <div class="relative">
-                    <p
-                      class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600
+                      />
+                    </div>
+                    <div class="relative">
+                      <p
+                        class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600
                   absolute"
-                    >
-                      Home Adress
-                    </p>
-                    <input
-                      placeholder="John"
-                      type="text"
-                      required
-                      class="border placeholder-gray-400 focus:outline-none
+                      >
+                        Home Adress
+                      </p>
+                      <input
+                        placeholder="John"
+                        type="text"
+                        required
+                        name="address"
+                        onChange={handleOnChange}
+                        class="border placeholder-gray-400 focus:outline-none
                   focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
                   border-gray-300 rounded-md"
-                    />
-                  </div>
-                  <div class="relative">
-                    <p
-                      class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600
+                      />
+                    </div>
+                    <div class="relative">
+                      <p
+                        class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600
                   absolute"
-                    >
-                      Phone Number
-                    </p>
-                    <input
-                      placeholder="John"
-                      required
-                      type="Number"
-                      class="border placeholder-gray-400 focus:outline-none
+                      >
+                        Phone Number
+                      </p>
+                      <input
+                        placeholder="John"
+                        name="phone"
+                        required
+                        onChange={handleOnChange}
+                        type="Number"
+                        class="border placeholder-gray-400 focus:outline-none
                   focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
                   border-gray-300 rounded-md"
-                    />
-                  </div>
-                  <div class="relative">
-                    <p class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute">
-                      Email
-                    </p>
-                    <input
-                      placeholder="123@ex.com"
-                      required
-                      type="email"
-                      class="border placeholder-gray-400 focus:outline-none
+                      />
+                    </div>
+                    <div class="relative">
+                      <p class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute">
+                        Email
+                      </p>
+                      <input
+                        placeholder="123@ex.com"
+                        name="email"
+                        required
+                        onChange={handleOnChange}
+                        type="email"
+                        class="border placeholder-gray-400 focus:outline-none
                   focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
                   border-gray-300 rounded-md"
-                    />
-                  </div>
-                  <div class="relative">
-                    <p
-                      class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600
+                      />
+                    </div>
+                    <div class="relative">
+                      <p
+                        class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600
                   absolute"
-                    >
-                      Password
-                    </p>
-                    <input
-                      placeholder="John"
-                      required
-                      type="password"
-                      class="border placeholder-gray-400 focus:outline-none
+                      >
+                        Password
+                      </p>
+                      <input
+                        placeholder="John"
+                        name="password"
+                        required
+                        onChange={handleOnChange}
+                        type="password"
+                        class="border placeholder-gray-400 focus:outline-none
                   focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
                   border-gray-300 rounded-md"
-                    />
-                  </div>
-                  <div class="relative">
-                    <p
-                      class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600
+                      />
+                    </div>
+                    <div class="relative">
+                      <p
+                        class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600
                   absolute"
-                    >
-                      Confirm Password
-                    </p>
-                    <input
-                      placeholder="Password"
-                      type="password"
-                      required
-                      class="border placeholder-gray-400 focus:outline-none
+                      >
+                        Confirm Password
+                      </p>
+                      <input
+                        name="confirmPassord"
+                        placeholder="Confirm Password"
+                        type="password"
+                        required
+                        onChange={handleOnChange}
+                        class="border placeholder-gray-400 focus:outline-none
                   focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
                   border-gray-300 rounded-md"
-                    />
-                  </div>
-                  <div class="relative">
-                    <Button
-                      class="w-full inline-block pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center text-white bg-indigo-500
-                  rounded-lg transition duration-200 hover:bg-indigo-600 ease "
-                    >
-                      Submit
-                    </Button>
-                  </div>
+                      />
+                    </div>
+
+                    <div class="relative">
+                      <button
+                        variant="primary"
+                        type="submit"
+                        class="w-full inline-block pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center text-white bg-indigo-500
+                  rounded-lg transition duration-200 hover:bg-indigo-600 ease mt-4 "
+                      >
+                        Submit
+                      </button>
+                    </div>
+                  </form>
                 </div>
               </div>
               <svg

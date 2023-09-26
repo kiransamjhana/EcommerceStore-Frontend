@@ -17,6 +17,7 @@ import { CartPage } from "./pages/cart/CartPage";
 import { CheckOt } from "./components/checkout/CheckOt";
 import { getPayOpsAction } from "./actions/payOpsonAction";
 import { UserSignUp } from "./pages/user/UserSignUp";
+import { postNewUserAction } from "./actions/userAction";
 
 function App() {
   const dispatch = useDispatch();

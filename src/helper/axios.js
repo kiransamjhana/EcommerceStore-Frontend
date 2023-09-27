@@ -8,13 +8,30 @@ const productAPI = rootAPI + "/product";
 const paymentAPI = rootAPI + "/payment";
 const userAPI = rootAPI + "/user";
 
+const getAccessJWT = () => {
+  return sessionStorage.getItem("accessJWT");
+};
+const getRefreshJWT = () => {
+  return localStorage.getItem("refreshJWT");
+};
 // Global axios proccesser function
-const axiosProcessor = async ({ method, url, obj }) => {
+const axiosProcessor = async ({
+  method,
+  url,
+  obj,
+  isPrivate,
+  refreshToken,
+}) => {
+  const token = refreshToken ? getRefreshJWT() : getAccessJWT();
+  const headers = {
+    Authorization: isPrivate ? token : null,
+  };
   try {
     const { data } = await axios({
       method,
       url,
       data: obj,
+      headers,
     });
 
     return data;
@@ -25,7 +42,6 @@ const axiosProcessor = async ({ method, url, obj }) => {
     };
   }
 };
-
 export const getCategories = () => {
   const obj = {
     method: "get",
@@ -51,7 +67,7 @@ export const getProducts = () => {
     method: "get",
     url: productAPI,
   };
-  console.log(obj);
+
   return axiosProcessor(obj);
 };
 
@@ -91,7 +107,18 @@ export const postNewUser = (data) => {
     method: "post",
     url: userAPI,
     obj: data,
+    isPrivate: true,
   };
+  return axiosProcessor(obj);
+};
+
+export const PostNewAdminVerificationInfo = (data) => {
+  const obj = {
+    method: "post",
+    url: userAPI + "/user-verification",
+    obj: data,
+  };
+
   return axiosProcessor(obj);
 };
 

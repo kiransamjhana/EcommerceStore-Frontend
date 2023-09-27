@@ -1,6 +1,7 @@
 import "./App.css";
 
 import { Home } from "./components/home/Home";
+import { ToastContainer } from "react-toastify";
 
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -36,6 +37,7 @@ function App() {
         <Route path="/cart" element={<CartPage />} />
         <Route path="/checkOut" element={<CheckOt />} />
       </Routes>
+      <ToastContainer />
     </div>
   );
 }

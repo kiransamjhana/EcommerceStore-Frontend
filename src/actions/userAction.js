@@ -2,13 +2,13 @@ import { toast } from "react-toastify";
 import { getUserById, postNewUser } from "../helper/axios";
 
 export const postNewUserAction = async (obj) => {
-  console.log(obj);
   const pendingResp = postNewUser(obj);
-
+  console.log(obj);
   toast.promise(pendingResp, {
     pending: " please wait ..",
   });
   const { status, message } = await pendingResp;
+
   toast[status](message);
 };
 

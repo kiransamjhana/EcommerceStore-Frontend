@@ -3,8 +3,10 @@ import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { postNewUserAction } from "../../actions/userAction";
+import { useDispatch } from "react-redux";
 
 export const SignUp = () => {
+  const dispatch = useDispatch();
   const [form, setForm] = useState({});
 
   const handleOnSubmit = (e) => {

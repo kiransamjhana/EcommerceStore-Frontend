@@ -1,5 +1,10 @@
 import React from "react";
+import { SignIn } from "../../components/user/SignIn";
 
-export const userSignIn = () => {
-  return <div>userSignIn</div>;
+export const UserSignIn = () => {
+  return (
+    <div>
+      <SignIn />
+    </div>
+  );
 };

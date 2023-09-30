@@ -19,6 +19,8 @@ import { CheckOt } from "./components/checkout/CheckOt";
 import { getPayOpsAction } from "./actions/payOpsonAction";
 import { UserSignUp } from "./pages/user/UserSignUp";
 import { postNewUserAction } from "./actions/userAction";
+import { VerifiyUser } from "./pages/verifiyUser/verifyUser";
+import { UserSignIn } from "./pages/user/UserSignIn";
 
 function App() {
   const dispatch = useDispatch();
@@ -32,6 +34,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<UserSignUp />} />
+        <Route path="/user-verification" element={<VerifiyUser />} />
+        <Route path="/login" element={<UserSignIn />} />
         <Route path="/category/:slug?/:_id?" element={<ProductCategory />} />
         <Route path="/product/:slug/:_id?" element={<ProductLanding />} />
         <Route path="/cart" element={<CartPage />} />

@@ -112,7 +112,7 @@ export const postNewUser = (data) => {
   return axiosProcessor(obj);
 };
 
-export const PostNewAdminVerificationInfo = (data) => {
+export const PostNewUserVerificationInfo = (data) => {
   const obj = {
     method: "post",
     url: userAPI + "/user-verification",

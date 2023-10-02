@@ -18,7 +18,7 @@ import { CartPage } from "./pages/cart/CartPage";
 import { CheckOt } from "./components/checkout/CheckOt";
 import { getPayOpsAction } from "./actions/payOpsonAction";
 import { UserSignUp } from "./pages/user/UserSignUp";
-import { postNewUserAction } from "./actions/userAction";
+import { getUserProfileAction, postNewUserAction } from "./actions/userAction";
 import { VerifiyUser } from "./pages/verifiyUser/verifyUser";
 import { UserSignIn } from "./pages/user/UserSignIn";
 
@@ -27,6 +27,7 @@ function App() {
   useEffect(() => {
     dispatch(getCatsAction());
     dispatch(getPayOpsAction());
+    dispatch(getUserProfileAction());
   }, [dispatch]);
 
   return (

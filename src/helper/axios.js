@@ -135,5 +135,39 @@ export const getAllUsers = () => {
     method: "get",
     url: userAPI,
   };
+
+  return axiosProcessor(obj);
+};
+
+// ==== get new refreshJWT
+export const getNewAccessJWT = () => {
+  const obj = {
+    method: "get",
+    url: userAPI + "/get-accessjwt",
+    isPrivate: true,
+    refreshToken: true,
+  };
+  return axiosProcessor(obj);
+};
+export const loginUser = (data) => {
+  const obj = {
+    method: "post",
+    url: userAPI + "/login",
+    obj: data,
+  };
+
+  return axiosProcessor(obj);
+};
+
+export const logoutAdmin = (_id) => {
+  const obj = {
+    method: "post",
+    url: userAPI + "/logout",
+    obj: {
+      _id,
+      accessJwt: getAccessJWT(),
+      refreshJWT: getRefreshJWT(),
+    },
+  };
   return axiosProcessor(obj);
 };

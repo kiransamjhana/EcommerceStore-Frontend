@@ -1,6 +1,43 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
+import {
+  autoLogin,
+  getUserProfileAction,
+  logInUserAction,
+} from "../../actions/userAction";
+const initialState = {
+  email: "",
+  password: "",
+};
 export const SignIn = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [form, setForm] = useState(initialState);
+  const { users } = useSelector((state) => state.userInfo);
+
+  const pathTo = location.state?.from?.location?.pathname || "/";
+  useEffect(() => {
+    users?._id && navigate(pathTo);
+
+    dispatch(autoLogin());
+  }, [users, navigate, dispatch, pathTo]);
+
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
+
+    setForm({
+      ...form,
+      [name]: value,
+    });
+  };
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    dispatch(logInUserAction(form));
+  };
+
   return (
     <div>
       {" "}
@@ -17,12 +54,13 @@ export const SignIn = () => {
               <h1 class="mb-2 text-2xl">Instagram</h1>
               <span class="text-gray-300">Enter Login Details</span>
             </div>
-            <form action="#">
+            <form onSubmit={handleOnSubmit}>
               <div class="mb-4 text-lg">
                 <input
                   class="rounded-3xl border-none bg-yellow-400 bg-opacity-50 px-6 py-2 text-center text-inherit placeholder-slate-200 shadow-lg outline-none backdrop-blur-md"
-                  type="text"
-                  name="name"
+                  type="email"
+                  onChange={handleOnChange}
+                  name="email"
                   placeholder="id@email.com"
                 />
               </div>
@@ -31,8 +69,9 @@ export const SignIn = () => {
                 <input
                   class="rounded-3xl border-none bg-yellow-400 bg-opacity-50 px-6 py-2 text-center text-inherit placeholder-slate-200 shadow-lg outline-none backdrop-blur-md"
                   type="Password"
-                  name="name"
+                  name="password"
                   placeholder="*********"
+                  onChange={handleOnChange}
                 />
               </div>
               <div class="mt-8 flex justify-center text-lg text-black">

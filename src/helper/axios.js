@@ -153,6 +153,7 @@ export const loginUser = (data) => {
   const obj = {
     method: "post",
     url: userAPI + "/login",
+    isPrivate: true,
     obj: data,
   };
 

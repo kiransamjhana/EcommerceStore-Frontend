@@ -90,8 +90,8 @@ export const Header = () => {
             <div class="flex items-center gap-4">
               <div class="sm:flex sm:gap-4">
                 <Link
+                  to={"/login"}
                   class="block rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700"
-                  href="/"
                 >
                   Login
                 </Link>

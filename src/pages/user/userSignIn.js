@@ -4,9 +4,6 @@ import { useDispatch } from "react-redux";
 import { getUserProfileAction } from "../../actions/userAction";
 
 export const UserSignIn = () => {
-  const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(getUserProfileAction());
   // }, []);
   return (
     <div>

@@ -40,7 +40,7 @@ export const getUserProfileAction = () => async (dispatch) => {
 };
 export const logInUserAction = (obj) => async (dispatch) => {
   const pendingResp = loginUser(obj);
-  console.log(obj);
+
   toast.promise(pendingResp, {
     pending: "Please await..",
   });

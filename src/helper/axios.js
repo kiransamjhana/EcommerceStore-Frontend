@@ -33,15 +33,31 @@ const axiosProcessor = async ({
       data: obj,
       headers,
     });
+    console.log(headers);
 
     return data;
   } catch (error) {
+    if (
+      error?.response?.status === 403 &&
+      error?.response?.data?.message === "jwt expired"
+    ) {
+      //1. get new accessJWt
+      const { status, accessJWT } = await getNewAccessJWT();
+      if (status === "success" && accessJWT) {
+        sessionStorage.setItem("accessJWT", accessJWT);
+      }
+
+      //2. continue the request
+
+      return axiosProcessor({ method, url, obj, isPrivate, refreshToken });
+    }
     return {
       status: "error",
       message: error.response ? error?.response?.data?.message : error.message,
     };
   }
 };
+
 export const getCategories = () => {
   const obj = {
     method: "get",
@@ -107,7 +123,6 @@ export const postNewUser = (data) => {
     method: "post",
     url: userAPI,
     obj: data,
-    isPrivate: true,
   };
   return axiosProcessor(obj);
 };
@@ -147,20 +162,20 @@ export const getNewAccessJWT = () => {
     isPrivate: true,
     refreshToken: true,
   };
+
   return axiosProcessor(obj);
 };
-export const loginUser = (data) => {
+export const loginUser = (loginData) => {
   const obj = {
     method: "post",
     url: userAPI + "/login",
-    isPrivate: true,
-    obj: data,
+    obj: loginData,
   };
 
   return axiosProcessor(obj);
 };
 
-export const logoutAdmin = (_id) => {
+export const logoutUser = (_id) => {
   const obj = {
     method: "post",
     url: userAPI + "/logout",

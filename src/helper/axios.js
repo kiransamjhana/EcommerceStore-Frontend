@@ -136,11 +136,22 @@ export const PostNewUserVerificationInfo = (data) => {
 
   return axiosProcessor(obj);
 };
+export const loginUser = (loginData) => {
+  const obj = {
+    method: "post",
+    url: userAPI + "/login",
+    obj: loginData,
+  };
+
+  return axiosProcessor(obj);
+};
 
 export const getUserById = (_id) => {
+  console.log(_id);
   const obj = {
     method: "get",
     url: userAPI,
+    isPrivate: true,
   };
   return axiosProcessor(obj);
 };
@@ -148,7 +159,8 @@ export const getUserById = (_id) => {
 export const getAllUsers = () => {
   const obj = {
     method: "get",
-    url: userAPI,
+    url: userAPI + "/get-users",
+    isPrivate: true,
   };
 
   return axiosProcessor(obj);
@@ -161,15 +173,6 @@ export const getNewAccessJWT = () => {
     url: userAPI + "/get-accessjwt",
     isPrivate: true,
     refreshToken: true,
-  };
-
-  return axiosProcessor(obj);
-};
-export const loginUser = (loginData) => {
-  const obj = {
-    method: "post",
-    url: userAPI + "/login",
-    obj: loginData,
   };
 
   return axiosProcessor(obj);

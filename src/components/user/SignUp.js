@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Button, Form } from "react-bootstrap";
 import { toast } from "react-toastify";
@@ -17,7 +17,6 @@ export const SignUp = () => {
     }
     postNewUserAction(rest);
   };
-  console.log(form);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -25,7 +24,6 @@ export const SignUp = () => {
       ...form,
       [name]: value,
     });
-    console.log(form);
   };
 
   return (

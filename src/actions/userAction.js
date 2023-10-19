@@ -27,6 +27,9 @@ export const getUserByIdAction = (_id) => async (dispatch) => {
   // mount the state
   //   if (status === "success") {
   //     dispatch(setAdmin(user));
+  if (status === "success") {
+    dispatch(setUser(user));
+  }
 };
 
 export const getUserProfileAction = () => async (dispatch) => {

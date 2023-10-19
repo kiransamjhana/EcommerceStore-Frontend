@@ -20,7 +20,7 @@ export const SignIn = () => {
   const pathTo = location.state?.from?.location?.pathname || "/";
   useEffect(() => {
     users?._id && navigate(pathTo);
-
+    dispatch(getUserProfileAction());
     dispatch(autoLogin());
   }, [users, navigate, dispatch, pathTo]);
 

@@ -27,7 +27,6 @@ function App() {
   useEffect(() => {
     dispatch(getCatsAction());
     dispatch(getPayOpsAction());
-    dispatch(getUserProfileAction());
   }, [dispatch]);
 
   return (

@@ -18,6 +18,24 @@ export const postNewUserAction = async (obj) => {
 
   toast[status](message);
 };
+export const logInUserAction = (obj) => async (dispatch) => {
+  const pendingResp = loginUser(obj);
+
+  toast.promise(pendingResp, {
+    pending: "Please await..",
+  });
+  const { status, message, token, _id } = await pendingResp;
+  console.log(_id);
+
+  toast[status](message);
+
+  if (status === "success") {
+    sessionStorage.setItem("accessJWT", token.accessJWT);
+    localStorage.setItem("refreshJWT", token.refreshJWT);
+    dispatch(getUserByIdAction(_id));
+  }
+  //get the user data and mount in the state
+};
 
 export const getUserByIdAction = (_id) => async (dispatch) => {
   //call the api to get user info
@@ -41,23 +59,7 @@ export const getUserProfileAction = () => async (dispatch) => {
     dispatch(setUser(user));
   }
 };
-export const logInUserAction = (obj) => async (dispatch) => {
-  const pendingResp = loginUser(obj);
 
-  toast.promise(pendingResp, {
-    pending: "Please await..",
-  });
-  const { status, message, token } = await pendingResp;
-
-  toast[status](message);
-
-  if (status === "success") {
-    sessionStorage.setItem("accessJWT", token.accessJWT);
-    localStorage.setItem("refreshJWT", token.refreshJWT);
-    dispatch(getUserProfileAction());
-  }
-  //get the user data and mount in the state
-};
 export const autoLogin = () => async (dispatch) => {
   //check if accessJwt exist in session
   const accessJWT = sessionStorage.getItem("accessJWT");

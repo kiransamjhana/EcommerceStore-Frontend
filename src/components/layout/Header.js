@@ -1,10 +1,29 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductByCategoryIdAction } from "../../actions/proudctAction";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineShoppingCart } from "react-icons/ai";
+import { logoutUser } from "../../helper/axios";
+import { setUser } from "../../redux/userSlice";
 export const Header = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { cats } = useSelector((state) => state.catInfo);
+  const { users } = useSelector((state) => state.userInfo);
+
+  const handleOnLogout = () => {
+    // log out from server by removing the access and refresh JWTs
+
+    logoutUser(users._id);
+
+    //clear storages
+    localStorage.removeItem("refreshJWT");
+    sessionStorage.removeItem("accessJWT");
+
+    // reset store
+    dispatch(setUser({}));
+    navigate("/");
+  };
 
   return (
     <div>
@@ -88,21 +107,34 @@ export const Header = () => {
             </div>
 
             <div class="flex items-center gap-4">
-              <div class="sm:flex sm:gap-4">
-                <Link
-                  to={"/login"}
-                  class="block rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700"
-                >
-                  Login
-                </Link>
+              {users?._id ? (
+                <div className="sm:flex sm:gap-4">
+                  {" "}
+                  <Link
+                    to={"/"}
+                    className="block rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700"
+                    onClick={handleOnLogout}
+                  >
+                    LogOut
+                  </Link>
+                </div>
+              ) : (
+                <div class="sm:flex sm:gap-4">
+                  <Link
+                    to={"/login"}
+                    class="block rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700"
+                  >
+                    Login
+                  </Link>
 
-                <Link
-                  to="/register"
-                  class="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block"
-                >
-                  Register
-                </Link>
-              </div>
+                  <Link
+                    to="/register"
+                    class="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block"
+                  >
+                    Register
+                  </Link>
+                </div>
+              )}
 
               <button class="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden">
                 <span class="sr-only">Toggle menu</span>

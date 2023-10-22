@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import {
-  autoLogin,
-  getUserProfileAction,
-  logInUserAction,
-} from "../../actions/userAction";
+import { autoLogin, logInUserAction } from "../../actions/userAction";
 const initialState = {
   email: "",
   password: "",
@@ -16,12 +12,13 @@ export const SignIn = () => {
   const dispatch = useDispatch();
   const [form, setForm] = useState(initialState);
   const { users } = useSelector((state) => state.userInfo);
+  console.log(users);
 
   const pathTo = location.state?.from?.location?.pathname || "/";
   useEffect(() => {
     users?._id && navigate(pathTo);
-    dispatch(getUserProfileAction());
-    dispatch(autoLogin());
+
+    // dispatch(autoLogin());
   }, [users, navigate, dispatch, pathTo]);
 
   const handleOnChange = (e) => {

@@ -22,7 +22,7 @@ export const Header = () => {
 
     // reset store
     dispatch(setUser({}));
-    navigate("/");
+    navigate("/login");
   };
 
   return (
@@ -111,7 +111,7 @@ export const Header = () => {
                 <div className="sm:flex sm:gap-4">
                   {" "}
                   <Link
-                    to={"/"}
+                    to={"/login"}
                     className="block rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700"
                     onClick={handleOnLogout}
                   >

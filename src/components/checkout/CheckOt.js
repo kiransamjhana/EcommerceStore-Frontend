@@ -5,7 +5,6 @@ import { Footer } from "../layout/Footer";
 
 export const CheckOt = () => {
   const { cart } = useSelector((state) => state.cartInfo);
-  console.log(cart);
 
   return (
     <div>

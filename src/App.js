@@ -39,7 +39,7 @@ function App() {
         <Route path="/category/:slug?/:_id?" element={<ProductCategory />} />
         <Route path="/product/:slug/:_id?" element={<ProductLanding />} />
         <Route path="/cart" element={<CartPage />} />
-        <Route path="/checkOut" element={<CheckOt />} />
+        <Route path="/checkout" element={<CheckOt />} />
       </Routes>
       <ToastContainer />
     </div>

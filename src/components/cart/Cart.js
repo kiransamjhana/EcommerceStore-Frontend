@@ -3,19 +3,30 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeItemFromCart } from "../../redux/cartSlice";
 import { Header } from "../layout/Header";
 import { Footer } from "../layout/Footer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Cart = () => {
-  const { cart } = useSelector((state) => state.cartInfo);
-  // const [qty, setQty] = useState([]);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const handleOnChange = (e) => {
-  //   const { name, value } = e.target;
+  const { cart } = useSelector((state) => state.cartInfo);
+  const { users } = useSelector((state) => state.userInfo);
+  console.log(users.id);
+  // const [qty, setQty] = useState([]);
 
-  //   setQty({ ...qty, [name]: value });
-  // };
+  const handleOnCheckOut = () => {
+    users.id ? navigate("/checkOut") : navigate("/login");
+  };
+  if (cart.length === 0) {
+    return (
+      <div className="h-[90vh] flex justify-center items-center text-4xl ">
+        Cart is Empty
+      </div>
+    );
+  }
+
   const handleOnDelete = (_id) => {
     dispatch(removeItemFromCart(_id));
+    navigate("/cart");
   };
 
   const totalAmount = cart.reduce((acc, curr) => {
@@ -138,32 +149,13 @@ export const Cart = () => {
                       Congratulations you have saved AUD{excludeDecimalDiscont}$
                     </strong>
                   </div>
-                  {/* <div className="flex justify-end">
-                    <span className="inline-flex items-center justify-center rounded-full bg-indigo-100 px-2.5 py-0.5 text-indigo-700">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="1.5"
-                        stroke="currentColor"
-                        className="-ms-1 me-1.5 h-4 w-4"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z"
-                        />
-                      </svg>
-                    </span>
-                  </div> */}{" "}
-                  <div className="flex justify-end">
-                    <Link
-                      to="/checkout"
-                      className="block rounded bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600"
-                    >
-                      Checkout
-                    </Link>
-                  </div>
+
+                  <button
+                    onClick={handleOnCheckOut}
+                    className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full"
+                  >
+                    Checkout
+                  </button>
                 </div>
               </div>
             </div>

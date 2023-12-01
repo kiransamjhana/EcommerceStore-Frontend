@@ -25,7 +25,6 @@ export const logInUserAction = (obj) => async (dispatch) => {
     pending: "Please await..",
   });
   const { status, message, token, _id } = await pendingResp;
-  console.log(_id);
 
   toast[status](message);
 

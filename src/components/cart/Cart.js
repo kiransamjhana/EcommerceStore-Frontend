@@ -10,11 +10,11 @@ export const Cart = () => {
   const dispatch = useDispatch();
   const { cart } = useSelector((state) => state.cartInfo);
   const { users } = useSelector((state) => state.userInfo);
-  console.log(users.id);
+  console.log(users);
   // const [qty, setQty] = useState([]);
 
   const handleOnCheckOut = () => {
-    users.id ? navigate("/checkOut") : navigate("/login");
+    users._id ? navigate("/checkOut") : navigate("/login");
   };
   if (cart.length === 0) {
     return (

@@ -2,16 +2,21 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Payment } from "../../pages/payment/Payment";
 import { Footer } from "../layout/Footer";
+import { Header } from "../layout/Header";
+import { Link } from "react-router-dom";
 
 export const CheckOt = () => {
   const { cart } = useSelector((state) => state.cartInfo);
 
+  const { users } = useSelector((state) => state.userInfo);
+  const totalAmount = cart.reduce((acc, curr) => {
+    return acc + curr.price;
+  }, 0);
+
   return (
     <div>
+      <Header />
       <div className="flex flex-col items-center border-b bg-white py-4 sm:flex-row sm:px-10 lg:px-20 xl:px-32">
-        <a href="#" className="text-2xl font-bold text-gray-800">
-          Manandhar Hardware
-        </a>
         <div className="mt-4 py-2 text-xs sm:mt-0 sm:ml-auto sm:text-base">
           <div className="relative">
             <ul className="relative flex w-full items-center justify-between space-x-2 sm:space-x-4">
@@ -128,8 +133,8 @@ export const CheckOt = () => {
                 type="text"
                 id="flName"
                 name="name"
+                value={users.fName}
                 className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
-                placeholder="kiran manandhar"
               />
               <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
                 <path
@@ -148,6 +153,7 @@ export const CheckOt = () => {
                 type="text"
                 id="email"
                 name="email"
+                value={users.email}
                 className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
                 placeholder="kiran@yahoo.com"
               />
@@ -167,6 +173,7 @@ export const CheckOt = () => {
                 type="Number"
                 id="pNumber"
                 name="phone"
+                value={users.phone}
                 className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
                 placeholder="0449967997"
               />
@@ -220,7 +227,7 @@ export const CheckOt = () => {
               for="billing-address"
               class="mt-4 mb-2 block text-sm font-medium"
             >
-              Billing Adress
+              Billing Adressn
             </label>
             <div class="flex flex-col sm:flex-row">
               <div class="relative flex-shrink-0 sm:w-7/12">
@@ -256,27 +263,32 @@ export const CheckOt = () => {
             <div class="mt-9 border-t border-b py-2">
               <div class="flex items-center justify-between">
                 <p class="text-sm font-medium text-gray-900">Subtotal</p>
-                <p class="font-semibold text-gray-900">$399.00</p>
+                <p class="font-semibold text-gray-900">{totalAmount}</p>
               </div>
               <div class="flex items-center justify-between">
                 <p class="text-sm font-medium text-gray-900">Shipping</p>
-                <p class="font-semibold text-gray-900">$8.00</p>
+                <p class="font-semibold text-gray-900">$8.0</p>
               </div>
             </div>
             <div class="mt-6 flex items-center justify-between">
-              <p class="text-sm font-medium text-gray-900">Total</p>
-              <p class="text-2xl font-semibold text-gray-900">$408.00</p>
+              <p class="text-sm font-medium text-gray-900">Total to Pay</p>
+              <p class="text-2xl font-semibold text-gray-900">
+                {totalAmount - 8}
+              </p>
             </div>
           </div>
-          <button class="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">
-            Place Order
-          </button>
         </div>
         <div className="px-4 pt-8 mt-1">
           {" "}
           <p className=" text-lg font-medium">Payment Methods</p>
           <p className="text-gray-400">Select Your Suitable payment Methods</p>
           <Payment />
+          <Link to="/order">
+            {" "}
+            <button class="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">
+              Place Order
+            </button>
+          </Link>
         </div>
       </div>
     </div>

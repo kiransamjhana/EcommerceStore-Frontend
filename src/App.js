@@ -21,6 +21,7 @@ import { UserSignUp } from "./pages/user/UserSignUp";
 import { getUserProfileAction, postNewUserAction } from "./actions/userAction";
 import { VerifiyUser } from "./pages/verifiyUser/verifyUser";
 import { UserSignIn } from "./pages/user/UserSignIn";
+import { Order } from "./pages/order/Order";
 
 function App() {
   const dispatch = useDispatch();
@@ -40,6 +41,7 @@ function App() {
         <Route path="/product/:slug/:_id?" element={<ProductLanding />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/checkout" element={<CheckOt />} />
+        <Route path="/order" element={<Order />} />
       </Routes>
       <ToastContainer />
     </div>

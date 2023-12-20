@@ -16,6 +16,7 @@ export const SignUp = () => {
       return toast.error("Password should match");
     }
     postNewUserAction(rest);
+    console.log(rest);
   };
 
   const handleOnChange = (e) => {

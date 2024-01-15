@@ -198,9 +198,10 @@ export const postPaymentIntent = (data) => {
   const obj = {
     method: "post",
     url: stripeAPI,
-    currency: "aud",
+
     obj: data,
   };
   console.log(obj);
+
   return axiosProcessor(obj);
 };

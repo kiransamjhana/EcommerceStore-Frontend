@@ -11,7 +11,7 @@ export const PaymentForm = () => {
   const { cart } = useSelector((state) => state.cartInfo);
 
   const { users } = useSelector((state) => state.userInfo);
-  const totalAmount = cart.reduce((acc, curr) => {
+  const amount = cart.reduce((acc, curr) => {
     return acc + curr.price;
   }, 0);
 
@@ -19,6 +19,10 @@ export const PaymentForm = () => {
     const { name, value } = e.target;
     setForm({
       ...form,
+      amount,
+      currency: "aud",
+      paymentMethodType: "card",
+
       [name]: value,
     });
   };
@@ -30,16 +34,16 @@ export const PaymentForm = () => {
     }
 
     try {
-      const { paymentMethod, error } = await stripe.createPaymentMethod({
-        type: "card",
-        card: elements.getElement(CardElement),
+      const clientSecret = data.clientSecret;
+      const { paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: { card: elements.getElement(CardElement) },
       });
 
       if (error) {
         console.error(error);
       } else {
         // Use the paymentMethod.id to send to your server
-        postNewPayment(form, totalAmount);
+        postNewPayment(form);
       }
     } catch (error) {
       console.error(error);
@@ -137,7 +141,7 @@ export const PaymentForm = () => {
           <div class="mt-9 border-t border-b py-2">
             <div class="flex items-center justify-between">
               <p class="text-sm font-medium text-gray-900">Subtotal</p>
-              <p class="font-semibold text-gray-900">${totalAmount}</p>
+              <p class="font-semibold text-gray-900">${amount}</p>
             </div>
           </div>
           <div class="mt-6 flex items-center justify-between">
@@ -146,7 +150,7 @@ export const PaymentForm = () => {
               class="text-2xl font-semibold text-gray-900"
               onChange={handleOnChange}
             >
-              ${totalAmount}
+              ${amount}
             </p>
           </div>
           <CardElement />

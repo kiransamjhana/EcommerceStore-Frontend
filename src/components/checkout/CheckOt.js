@@ -1,18 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Payment } from "../../pages/payment/Payment";
-import { Footer } from "../layout/Footer";
-import { Header } from "../layout/Header";
-import { Link } from "react-router-dom";
-import { PaymentForm } from "./PaymentForm";
 
-import { useState } from "react";
-import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import { postNewPayment } from "../../actions/stripeAction";
+import { Header } from "../layout/Header";
+
+import { PaymentForm } from "./PaymentForm";
 
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { postNewUserAction } from "../../actions/userAction";
 
 const stripePromise = loadStripe(
   "pk_test_51Ntj4VBmvWylAIGlyjJvI0uOgnUyJSkDwmPrtOgcHjw54a7yJbK9Sh0ecfyfNjrQSGPXLT3JRmVFMmFhFy86VpCO00QqPBwfy4"
@@ -25,12 +19,6 @@ export const CheckOt = () => {
   const totalAmount = cart.reduce((acc, curr) => {
     return acc + curr.price;
   }, 0);
-  const stripe = useStripe();
-  const elements = useElements();
-
-  useEffect(() => {
-    dispatch(postNewPayment);
-  }, [dispatch]);
 
   return (
     <div>
@@ -69,22 +57,9 @@ export const CheckOt = () => {
         </div>
 
         <div className="px-4 pt-8 mt-1">
-          <div>
-            <Elements stripe={stripePromise}>
-              {" "}
-              <PaymentForm />
-            </Elements>
-          </div>
-          {/* {" "}
-          <p className=" text-lg font-medium">Payment Methods</p>
-          <p className="text-gray-400">Select Your Suitable payment Methods</p>
-          <Payment /> */}
-          <Link to="/order">
-            {" "}
-            <button class="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">
-              Place Order
-            </button>
-          </Link>
+          <Elements stripe={stripePromise}>
+            <PaymentForm />
+          </Elements>
         </div>
       </div>
     </div>

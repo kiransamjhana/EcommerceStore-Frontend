@@ -1,12 +1,16 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import { postNewPayment } from "../../actions/stripeAction";
+
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { postNewOrderAction } from "../../actions/orderAction";
 
 export const PaymentForm = () => {
-  const dispatch = useDispatch();
   const stripe = useStripe();
   const elements = useElements();
+  const navigate = useNavigate();
   const [form, setForm] = useState({});
   const { cart } = useSelector((state) => state.cartInfo);
 
@@ -26,6 +30,12 @@ export const PaymentForm = () => {
       [name]: value,
     });
   };
+
+  const name = form.name;
+  const email = form.email;
+  const address = form.shipping;
+  const phone = form.phone;
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -34,22 +44,56 @@ export const PaymentForm = () => {
     }
 
     try {
-      const clientSecret = data.clientSecret;
-      const { paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-        payment_method: { card: elements.getElement(CardElement) },
+      const apiUrl = "http://localhost:8200/api/v1/store/payment-intent";
+
+      const { data } = await axios.post(apiUrl, {
+        amount,
+        currency: "aud",
+        paymentMethodType: "card",
       });
 
-      if (error) {
-        console.error(error);
+      console.log(data);
+      const clientSecret = data.clientSecret;
+
+      const { paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: elements.getElement(CardElement),
+          billing_details: {
+            name: form.flName,
+            email: form.email,
+          },
+        },
+      });
+      const { status, id, currency, payment_method } = paymentIntent;
+      console.log(name, email);
+      const obj = {
+        name,
+        email,
+        phone,
+        address,
+        amount,
+        status,
+        transId: id,
+        currency,
+        payment_method,
+      };
+
+      console.log(paymentIntent);
+
+      if (paymentIntent.status === "succeeded") {
+        postNewOrderAction(obj);
+        // navigate("/order");
+
+        // call your order server to create new order in the db
       } else {
-        // Use the paymentMethod.id to send to your server
-        postNewPayment(form);
+        alert("Couldn't process the payment, try agian later");
       }
+
+      //   confirming the payment to strip server
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   };
-  console.log(form);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -128,8 +172,8 @@ export const PaymentForm = () => {
             <div class="relative ">
               <input
                 type="text"
-                id="shipping-address"
-                name="shipping-address"
+                id="saddress"
+                name="shipping"
                 onChange={handleOnChange}
                 class="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
                 placeholder="Street Address"
@@ -154,12 +198,15 @@ export const PaymentForm = () => {
             </p>
           </div>
           <CardElement />
-          <button
-            class="mt-4 mb-8 w-full rounded-md bg-green-900 px-6 py-3 font-medium text-white"
-            type="submit"
-          >
-            Pay
-          </button>
+          <hr />
+          <div>
+            <button
+              class="mt-4 mb-8 w-full rounded-md bg-green-900 px-6 py-3 font-medium text-white"
+              type="submit"
+            >
+              Pay
+            </button>
+          </div>
         </div>
       </div>
     </form>

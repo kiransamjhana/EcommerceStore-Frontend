@@ -7,7 +7,8 @@ const categoryAPI = rootAPI + "/catagory";
 const productAPI = rootAPI + "/product";
 const paymentAPI = rootAPI + "/payment";
 const userAPI = rootAPI + "/user";
-const stripeAPI = rootAPI + "/payment-intent";
+const orderAPI = rootAPI + "/order";
+// const stripeAPI = rootAPI + "/payment-intent";
 
 const getAccessJWT = () => {
   return sessionStorage.getItem("accessJWT");
@@ -193,15 +194,25 @@ export const logoutUser = (_id) => {
   return axiosProcessor(obj);
 };
 
-//payment stripe integration
-export const postPaymentIntent = (data) => {
+/// Order axios
+export const postNewOrder = (data) => {
   const obj = {
     method: "post",
-    url: stripeAPI,
-
+    url: orderAPI,
     obj: data,
   };
   console.log(obj);
-
   return axiosProcessor(obj);
 };
+
+//payment stripe integration
+// export const postPaymentIntent = (data) => {
+//   const obj = {
+//     method: "post",
+//     url: stripeAPI,
+
+//     obj: data,
+//   };
+
+//   return axiosProcessor(obj);
+// };

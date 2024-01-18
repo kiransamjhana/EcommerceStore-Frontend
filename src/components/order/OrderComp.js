@@ -7,7 +7,7 @@ export const OrderComp = () => {
     <div>
       <Header />
 
-      <p> Thank you for your order</p>
+      <p> Your Order has been procced</p>
       <p> please find your order number below for tracking your delivery</p>
       <Footer />
     </div>

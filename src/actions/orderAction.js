@@ -7,9 +7,7 @@ export const postNewOrderAction = async (obj) => {
   console.log(obj);
   const pendingResp = postNewOrder(obj);
   console.log(obj);
-  toast.promise(pendingResp, {
-    pending: " please wait ..",
-  });
+
   const { status, message } = await pendingResp;
 
   toast[status](message);

@@ -35,7 +35,6 @@ const axiosProcessor = async ({
       data: obj,
       headers,
     });
-    console.log(headers);
 
     return data;
   } catch (error) {
@@ -201,7 +200,26 @@ export const postNewOrder = (data) => {
     url: orderAPI,
     obj: data,
   };
+
+  return axiosProcessor(obj);
+};
+
+export const getOrders = () => {
+  const obj = {
+    method: "get",
+    url: orderAPI,
+  };
   console.log(obj);
+  return axiosProcessor(obj);
+};
+
+export const getOrdersByEmail = (email) => {
+  const obj = {
+    method: "get",
+    url: orderAPI,
+    email,
+  };
+
   return axiosProcessor(obj);
 };
 

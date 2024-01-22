@@ -15,7 +15,7 @@ export const SignUp = () => {
     if (confirmPassord !== rest.password) {
       return toast.error("Password should match");
     }
-    postNewUserAction(rest);
+    dispatch(postNewUserAction(rest));
     console.log(rest);
   };
 

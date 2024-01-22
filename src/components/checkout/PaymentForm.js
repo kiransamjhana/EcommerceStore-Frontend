@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { postNewOrderAction } from "../../actions/orderAction";
+import { OrderNumber } from "../../helper/orderNumber";
 
 export const PaymentForm = () => {
   const stripe = useStripe();
@@ -64,15 +65,16 @@ export const PaymentForm = () => {
           },
         },
       });
+      console.log(paymentIntent);
       const { status, id, currency, payment_method } = paymentIntent;
-      console.log(name, email);
+
       const obj = {
         name,
         email,
         phone,
         address,
         amount,
-        status,
+        payStatus: status,
         transId: id,
         currency,
         payment_method,
@@ -82,7 +84,8 @@ export const PaymentForm = () => {
 
       if (paymentIntent.status === "succeeded") {
         postNewOrderAction(obj);
-        // navigate("/order");
+        localStorage.setItem("orderNumber", id);
+        navigate("/order");
 
         // call your order server to create new order in the db
       } else {
@@ -90,9 +93,7 @@ export const PaymentForm = () => {
       }
 
       //   confirming the payment to strip server
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   return (
@@ -110,6 +111,7 @@ export const PaymentForm = () => {
               type="text"
               id="flName"
               name="name"
+              required="true"
               onChange={handleOnChange}
               className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
             />
@@ -127,12 +129,13 @@ export const PaymentForm = () => {
           </label>
           <div className="relative">
             <input
-              type="text"
+              type="email"
               id="email"
               name="email"
               onChange={handleOnChange}
               className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
               placeholder="kiran@yahoo.com"
+              required="true"
             />
             <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
               <path
@@ -147,9 +150,12 @@ export const PaymentForm = () => {
           </label>
           <div className="relative">
             <input
-              type="Number"
+              type="number"
               id="pNumber"
               name="phone"
+              maxLength={10}
+              minLength={10}
+              required="true"
               onChange={handleOnChange}
               className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
               placeholder="0449967997"
@@ -174,6 +180,7 @@ export const PaymentForm = () => {
                 type="text"
                 id="saddress"
                 name="shipping"
+                required="true"
                 onChange={handleOnChange}
                 class="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
                 placeholder="Street Address"

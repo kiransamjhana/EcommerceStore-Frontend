@@ -5,6 +5,7 @@ import cartReducer from "../src/redux/cartSlice";
 import paymentReducer from "../src/redux/paymentOpSlice";
 import userReducer from "../src/redux/userSlice";
 import system from "../src/redux/systemSlice";
+import orderReducer from "../src/redux/orderSlice";
 
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
@@ -24,6 +25,7 @@ export const store = configureStore({
     cartInfo: persistedReducer,
     paymentInfo: paymentReducer,
     userInfo: userReducer,
+    orderInfo: orderReducer,
   },
 });
 

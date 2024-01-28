@@ -30,9 +30,9 @@ export const ProductCategory = () => {
             </h2>
 
             <p className="max-w-md mt-4 text-gray-500">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque
-              praesentium cumque iure dicta incidunt est ipsam, officia dolor
-              fugit natus?
+              Make your home feels like home with our amazing products. SignUp
+              for the memembership and recieve 10% discount witht the first
+              purchase
             </p>
           </header>
 

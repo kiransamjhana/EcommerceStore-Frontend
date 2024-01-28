@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProductsAction } from "../../actions/proudctAction";
 import { ProductCard } from "../product/ProductCard";
 import { Footer } from "../layout/Footer";
+import HeroSection from "../top section/HeroSection";
 
 export const Home = () => {
   const dispatch = useDispatch();

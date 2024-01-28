@@ -7,3 +7,7 @@
   margin: 0;
   -webkit-appearance: none;
 }
+
+.logo {
+  background-image: url("../src/assest/storelogo.jpng.png");
+}

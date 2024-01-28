@@ -4,6 +4,7 @@ import { removeItemFromCart } from "../../redux/cartSlice";
 import { Header } from "../layout/Header";
 import { Footer } from "../layout/Footer";
 import { Link, useNavigate } from "react-router-dom";
+import Quantity from "./Quantity";
 
 export const Cart = () => {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ export const Cart = () => {
   if (cart.length === 0) {
     return (
       <div className="h-[90vh] flex justify-center items-center text-4xl ">
-        Cart is Empty
+        Please Select the product first
       </div>
     );
   }
@@ -74,29 +75,7 @@ export const Cart = () => {
                       </div>
 
                       <div className="flex flex-1 items-center justify-end gap-4">
-                        <form>
-                          <div>
-                            <label
-                              htmlFor="HeadlineAct"
-                              className="block text-sm font-medium text-gray-900"
-                            >
-                              Qty
-                            </label>
-
-                            <select
-                              name="quantity"
-                              id="quantity"
-                              className="mt-1.5 w-full rounded-lg text-gray-700 sm:text-sm"
-                            >
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="4">4</option>
-                              <option value="5">5</option>
-                              <option value="6">6</option>
-                            </select>
-                          </div>
-                        </form>
+                        <Quantity />
 
                         <button
                           className="text-gray-600 transition hover:text-red-600"

@@ -7,6 +7,7 @@ import { PaymentForm } from "./PaymentForm";
 
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import Quantity from "../cart/Quantity";
 
 const stripePromise = loadStripe(
   "pk_test_51Ntj4VBmvWylAIGlyjJvI0uOgnUyJSkDwmPrtOgcHjw54a7yJbK9Sh0ecfyfNjrQSGPXLT3JRmVFMmFhFy86VpCO00QqPBwfy4"
@@ -19,7 +20,7 @@ export const CheckOt = () => {
   const totalAmount = cart.reduce((acc, curr) => {
     return acc + curr.price;
   }, 0);
-
+  console.log(cart);
   return (
     <div>
       <Header />
@@ -48,7 +49,18 @@ export const CheckOt = () => {
                   <div className="flex w-full flex-col px-4 py-4">
                     <span className="font-semibold">{item.name}</span>
 
-                    <p className="text-lg font-bold">${item.price}</p>
+                    <p className="text-lg font-bold">${item.price} /unit</p>
+                  </div>
+                  <div className="flex w-full flex-col px-4 py-4">
+                    <p className="text-lg font-bold">
+                      ${item.price * item.quantity}
+                    </p>
+                  </div>
+
+                  <div className="flex w-full flex-col px-4 py-4">
+                    <p className="text-lg font-bold">
+                      <Quantity quantity={item.quantity} />
+                    </p>
                   </div>
                 </div>
               );

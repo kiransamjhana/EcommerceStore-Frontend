@@ -16,8 +16,8 @@ export const PaymentForm = () => {
   const { cart } = useSelector((state) => state.cartInfo);
 
   const { users } = useSelector((state) => state.userInfo);
-  const amount = cart.reduce((acc, curr) => {
-    return acc + curr.price;
+  const amount = cart.reduce((acc, item) => {
+    return acc + item.price * item.quantity + 10;
   }, 0);
 
   const handleOnChange = (e) => {
@@ -78,8 +78,9 @@ export const PaymentForm = () => {
         transId: id,
         currency,
         payment_method,
+        cart,
       };
-
+      console.log(obj, "from payment form");
       console.log(paymentIntent);
 
       if (paymentIntent.status === "succeeded") {

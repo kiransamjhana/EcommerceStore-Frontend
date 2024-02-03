@@ -6,7 +6,7 @@ import { setOrder } from "../redux/orderSlice";
 export const postNewOrderAction = async (obj) => {
   console.log(obj);
   const pendingResp = postNewOrder(obj);
-  console.log(obj);
+  console.log(pendingResp);
 
   const { status, message } = await pendingResp;
 
@@ -19,14 +19,5 @@ export const getOrderAction = () => async (dispatch) => {
   if (status === "success") {
     /// mount data in the store
     dispatch(setOrder(order));
-  }
-};
-
-export const getOrderByEmail = (email) => async (dispatch) => {
-  const { status, products } = await getProductById();
-
-  if (status === "success") {
-    /// mount data in the store
-    dispatch(setProduct(products));
   }
 };

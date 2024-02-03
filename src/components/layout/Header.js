@@ -5,11 +5,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { logoutUser } from "../../helper/axios";
 import { setUser } from "../../redux/userSlice";
+import { ShoppingCart, User } from "lucide-react";
 export const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { cats } = useSelector((state) => state.catInfo);
   const { users } = useSelector((state) => state.userInfo);
+  const { cart } = useSelector((state) => state.cartInfo);
 
   const handleOnLogout = () => {
     // log out from server by removing the access and refresh JWTs
@@ -89,10 +91,14 @@ export const Header = () => {
 
               <Link
                 to={"/cart"}
-                className="block shrink-0 rounded-full bg-white p-2.5 text-gray-600 shadow-sm hover:text-gray-700"
+                className="inline-flex items-center text-white bg-purple border-2 border-indigo-600 py-2 px-4 focus:outline-none hover:bg-indigo-700 rounded-lg text-base"
               >
-                <span className="sr-only">Notifications</span>
-                <AiOutlineShoppingCart />
+                <ShoppingCart className="mr-2" />
+                {cart?.length > 0 && (
+                  <span className="text-xs font-semibold bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center transition-all animate-pulse">
+                    {cart.length}
+                  </span>
+                )}
               </Link>
             </div>
 
@@ -112,7 +118,7 @@ export const Header = () => {
                 <div class="sm:flex sm:gap-4">
                   <Link
                     to={"/login"}
-                    class="block rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700"
+                    className="block rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700"
                   >
                     Login
                   </Link>

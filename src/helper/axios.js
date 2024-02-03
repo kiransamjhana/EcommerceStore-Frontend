@@ -201,6 +201,7 @@ export const postNewOrder = (data) => {
     obj: data,
   };
 
+  console.log(obj, "from post new orders");
   return axiosProcessor(obj);
 };
 
@@ -209,7 +210,7 @@ export const getOrders = () => {
     method: "get",
     url: orderAPI,
   };
-  console.log(obj);
+
   return axiosProcessor(obj);
 };
 

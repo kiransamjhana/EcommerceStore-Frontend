@@ -1,24 +1,15 @@
 import React, { useState } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa";
 
-const Quantity = () => {
-  const [quantity, setQuantity] = useState(1);
-
-  const increaseQuantity = () => {
-    setQuantity(quantity + 1);
-  };
-
-  const decreaseQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-    }
-  };
-
+const Quantity = ({ qty, quantity, increaseQuantity, decreaseQuantity }) => {
   return (
-    <div className="quantity-control d-flex gap-4">
+    <div className="quantity-control d-flex gap-3">
       <div>
         {" "}
-        <button className="quantity-button" onClick={decreaseQuantity}>
+        <button
+          className="quantity-button col-span-2"
+          onClick={decreaseQuantity}
+        >
           <FaMinus />
         </button>
       </div>
@@ -26,7 +17,12 @@ const Quantity = () => {
       <span className="quantity-display">{quantity}</span>
       <div>
         {" "}
-        <button className="quantity-button" onClick={increaseQuantity}>
+        <button
+          className="quantity-button col-start-auto"
+          onClick={
+            quantity > qty ? window.alert("maximum limit") : increaseQuantity
+          }
+        >
           <FaPlus />
         </button>
       </div>

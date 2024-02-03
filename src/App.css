@@ -11,3 +11,83 @@
 .logo {
   background-image: url("../src/assest/storelogo.jpng.png");
 }
+
+/* Your existing styles */
+.d-flex {
+  display: flex;
+}
+
+.justify-content-around {
+  justify-content: space-around;
+}
+
+.gap-7 {
+  gap: 1.75rem; /* You can adjust this value based on your needs */
+}
+
+/* New styles for the image container and image itself */
+
+.image-style {
+  /* Set the desired size and appearance for the image */
+  display: flex;
+  justify-content: flex-end;
+  min-width: 0;
+  overflow: hidden; /* Adjust the width as needed */
+  height: 2.5rem; /* Adjust the height as needed */
+  object-fit: cover; /* Ensures the image retains its aspect ratio */
+  border-radius: 0.25rem; /* Adds a slight border-radius for rounded corners */
+}
+
+.price-style {
+  /* Add styles as needed for consistent appearance of the price */
+  font-size: 1rem;
+
+  overflow: hidden;
+  margin-inline: 1px;
+  white-space: nowrap;
+  color: #333; /* Adjust the color as needed */
+}
+
+.price-container {
+  display: flex;
+  flex-direction: column;
+}
+
+/* 
+css for the cartpage page
+*/
+
+@media (min-width: 1025px) {
+  .h-custom {
+    height: 100vh !important;
+  }
+}
+
+.card-registration .select-input.form-control[readonly]:not([disabled]) {
+  font-size: 1rem;
+  line-height: 2.15;
+  padding-left: 0.75em;
+  padding-right: 0.75em;
+}
+
+.card-registration .select-arrow {
+  top: 13px;
+}
+
+.bg-grey {
+  background-color: #eae8e8;
+}
+
+@media (min-width: 992px) {
+  .card-registration-2 .bg-grey {
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
+  }
+}
+
+@media (max-width: 991px) {
+  .card-registration-2 .bg-grey {
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+  }
+}

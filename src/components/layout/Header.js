@@ -1,14 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProductByCategoryIdAction } from "../../actions/proudctAction";
+import {
+  getProductByCategoryIdAction,
+  getProductsAction,
+} from "../../actions/proudctAction";
 import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import { logoutUser } from "../../helper/axios";
+import { getProducts, logoutUser } from "../../helper/axios";
 import { setUser } from "../../redux/userSlice";
 import { ShoppingCart, User } from "lucide-react";
+import { setProduct } from "../../redux/productSlice";
 export const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [displayProduct, setDisplayProduct] = useState([]);
+  const [productDt, setProductDt] = useState([]);
   const { cats } = useSelector((state) => state.catInfo);
   const { users } = useSelector((state) => state.userInfo);
   const { cart } = useSelector((state) => state.cartInfo);
@@ -25,6 +31,25 @@ export const Header = () => {
     // reset store
     dispatch(setUser({}));
     navigate("/login");
+  };
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const { product } = await getProducts();
+      setProduct(product);
+    };
+    fetchProducts();
+  }, []);
+
+  //handle on Search
+  const handleOnSearch = (e) => {
+    const { value } = e.target;
+    const filterProduct = value.length
+      ? productDt?.filter((item) =>
+          item?.name?.toLowerCase().includes(value?.toLowerCase())
+        )
+      : [];
+    setDisplayProduct(filterProduct);
   };
 
   return (
@@ -63,8 +88,9 @@ export const Header = () => {
                 <input
                   className="h-10 w-full rounded-full border-none bg-white pe-10 ps-4 text-sm shadow-sm sm:w-56"
                   id="search"
+                  onClick={handleOnSearch}
                   type="search"
-                  placeholder="Search website..."
+                  placeholder="Search Product"
                 />
 
                 <button
@@ -105,9 +131,8 @@ export const Header = () => {
             <div class="flex items-center gap-4">
               {users?._id ? (
                 <div className="sm:flex sm:gap-4">
-                  {" "}
                   <Link
-                    to={"/login"}
+                    to={"/"}
                     className="block rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700"
                     onClick={handleOnLogout}
                   >

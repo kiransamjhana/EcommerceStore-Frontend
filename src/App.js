@@ -18,9 +18,14 @@ import { CartPage } from "./pages/cart/CartPage";
 import { CheckOt } from "./components/checkout/CheckOt";
 import { getPayOpsAction } from "./actions/payOpsonAction";
 import { UserSignUp } from "./pages/user/UserSignUp";
-import { getUserProfileAction, postNewUserAction } from "./actions/userAction";
+import {
+  autoLogin,
+  getUserProfileAction,
+  postNewUserAction,
+} from "./actions/userAction";
 import { VerifiyUser } from "./pages/verifiyUser/verifyUser";
 import { UserSignIn } from "./pages/user/UserSignIn";
+import { PrivateRoute } from "./components/private/PrivateRoute";
 import { Order } from "./pages/order/Order";
 
 function App() {
@@ -28,6 +33,10 @@ function App() {
   useEffect(() => {
     dispatch(getCatsAction());
     dispatch(getPayOpsAction());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(autoLogin());
   }, [dispatch]);
 
   return (
@@ -40,8 +49,22 @@ function App() {
         <Route path="/category/:slug?/:_id?" element={<ProductCategory />} />
         <Route path="/product/:slug/:_id?" element={<ProductLanding />} />
         <Route path="/cart" element={<CartPage />} />
-        <Route path="/checkout" element={<CheckOt />} />
-        <Route path="/order" element={<Order />} />
+        <Route
+          path="/checkout"
+          element={
+            <PrivateRoute>
+              <CheckOt />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/order"
+          element={
+            <PrivateRoute>
+              <Order />
+            </PrivateRoute>
+          }
+        />
       </Routes>
       <ToastContainer />
     </div>

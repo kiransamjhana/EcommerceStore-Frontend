@@ -58,14 +58,20 @@ export const Cart = () => {
   const { qty } = product;
 
   const handleOnCheckOut = () => {
-    users._id
-      ? navigate("/checkOut") || setCart(totalAmount)
-      : navigate("/login");
+    users._id ? navigate("/checkOut") : navigate("/login");
   };
   if (cart.length === 0) {
     return (
       <div className="h-[90vh] flex justify-center items-center text-4xl ">
         Please Select the product first
+        <br />
+        <br />
+        <br />
+        <Link to="/">
+          {" "}
+          <br />
+          <span>Get Back to shooping</span>
+        </Link>
       </div>
     );
   }
@@ -90,7 +96,17 @@ export const Cart = () => {
   };
 
   const increaseQuantity = (_id) => {
-    quantity < qty ? setQuantity(quantity + 1) : setQuantity(qty);
+    cart.map((item, _id) => {
+      if (item._id === _id) {
+        if (item.quantity < item.qty) {
+          setQuantity(quantity + 1);
+          return dispatch(setCart({ ...item, quantity: item.quantity }));
+        } else {
+          toast.error("Limit fullfill");
+        }
+        return item;
+      }
+    });
   };
 
   const decreaseQuantity = (_id) => {
@@ -271,7 +287,7 @@ export const Cart = () => {
                         <MDBBtn
                           color="dark"
                           block
-                          size="lg"
+                          size="md"
                           onClick={handleOnCheckOut}
                         >
                           checkOut
@@ -285,7 +301,6 @@ export const Cart = () => {
           </MDBRow>
         </MDBContainer>
       </section>
-      <Footer />
     </div>
   );
 };

@@ -309,7 +309,7 @@ export const Footer = () => {
             </ul>
 
             <div className="mt-16  sm:items-center sm:justify-between">
-              <p className="mt-4 text-center text-sm text-gray-500 sm:mt-0 sm:text-right">
+              <p className="bg-dark text-light p-5 text-center">
                 Copyright &copy; 2022. All rights reserved Kiran Manandhar
                 Creation.
               </p>

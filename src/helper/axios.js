@@ -35,29 +35,16 @@ const axiosProcessor = async ({
       data: obj,
       headers,
     });
-
     return data;
   } catch (error) {
-    if (
-      error?.response?.status === 403 &&
-      error?.response?.data?.message === "jwt expired"
-    ) {
-      //1. get new accessJWt
-      const { status, accessJWT } = await getNewAccessJWT();
-      if (status === "success" && accessJWT) {
-        sessionStorage.setItem("accessJWT", accessJWT);
-      }
-
-      //2. continue the request
-
-      return axiosProcessor({ method, url, obj, isPrivate, refreshToken });
-    }
     return {
       status: "error",
       message: error.response ? error?.response?.data?.message : error.message,
     };
   }
 };
+
+// get category
 
 export const getCategories = () => {
   const obj = {
@@ -113,7 +100,7 @@ export const getPayementOptons = () => {
     method: "get",
     url: paymentAPI,
   };
-  console.log(obj);
+
   return axiosProcessor(obj);
 };
 
@@ -125,7 +112,7 @@ export const postNewUser = (data) => {
     url: userAPI,
     obj: data,
   };
-  console.log(obj);
+
   return axiosProcessor(obj);
 };
 
@@ -134,6 +121,7 @@ export const PostNewUserVerificationInfo = (data) => {
     method: "post",
     url: userAPI + "/user-verification",
     obj: data,
+    isPrivate: true,
   };
 
   return axiosProcessor(obj);
@@ -148,8 +136,7 @@ export const loginUser = (loginData) => {
   return axiosProcessor(obj);
 };
 
-export const getUserById = (_id) => {
-  console.log(_id);
+export const getUser = () => {
   const obj = {
     method: "get",
     url: userAPI,
@@ -199,9 +186,9 @@ export const postNewOrder = (data) => {
     method: "post",
     url: orderAPI,
     obj: data,
+    isPrivate: true,
   };
 
-  console.log(obj, "from post new orders");
   return axiosProcessor(obj);
 };
 
@@ -223,15 +210,3 @@ export const getOrdersByEmail = (email) => {
 
   return axiosProcessor(obj);
 };
-
-//payment stripe integration
-// export const postPaymentIntent = (data) => {
-//   const obj = {
-//     method: "post",
-//     url: stripeAPI,
-
-//     obj: data,
-//   };
-
-//   return axiosProcessor(obj);
-// };

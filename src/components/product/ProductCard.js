@@ -15,7 +15,7 @@ export const ProductCard = ({ item }) => {
         />
 
         <div className="relative pt-3 bg-white">
-          <h3 className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4">
+          <h3 className="text-xs text-gray-700 group-hover group-hover:underline-offset-4">
             {item.name}
           </h3>
 

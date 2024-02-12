@@ -12,14 +12,11 @@ export const SignIn = () => {
   const dispatch = useDispatch();
   const [form, setForm] = useState(initialState);
   const { users } = useSelector((state) => state.userInfo);
-  console.log(users);
 
   const pathTo = location.state?.from?.location?.pathname || "/";
   useEffect(() => {
     users?._id && navigate(pathTo);
-
-    // dispatch(autoLogin());
-  }, [users, navigate, dispatch, pathTo]);
+  }, [users, navigate, pathTo]);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -59,6 +56,7 @@ export const SignIn = () => {
                   onChange={handleOnChange}
                   name="email"
                   placeholder="id@email.com"
+                  required="true"
                 />
               </div>
 
@@ -69,6 +67,7 @@ export const SignIn = () => {
                   name="password"
                   placeholder="*********"
                   onChange={handleOnChange}
+                  required="true"
                 />
               </div>
               <div class="mt-8 flex justify-center text-lg text-black">

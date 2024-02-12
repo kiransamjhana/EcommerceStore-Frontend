@@ -14,8 +14,9 @@ export const PaymentForm = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({});
   const { cart } = useSelector((state) => state.cartInfo);
-
+  console.log(cart);
   const { users } = useSelector((state) => state.userInfo);
+  console.log(users._id);
   const amount = cart.reduce((acc, item) => {
     return acc + item.price * item.quantity + 10;
   }, 0);
@@ -79,6 +80,12 @@ export const PaymentForm = () => {
         currency,
         payment_method,
         cart,
+        products: cart.map((item) => ({
+          productId: item._id,
+          quantity: item.quantity,
+        })),
+
+        userId: users._id,
       };
       console.log(obj, "from payment form");
       console.log(paymentIntent);

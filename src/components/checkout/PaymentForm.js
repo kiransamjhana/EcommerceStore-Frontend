@@ -82,6 +82,7 @@ export const PaymentForm = () => {
         cart,
         products: cart.map((item) => ({
           productId: item._id,
+          productName: item.name,
           quantity: item.quantity,
         })),
 

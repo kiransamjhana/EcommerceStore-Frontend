@@ -10,6 +10,7 @@ import { getProducts, logoutUser } from "../../helper/axios";
 import { setUser } from "../../redux/userSlice";
 import { ShoppingCart, User } from "lucide-react";
 import { setProduct } from "../../redux/productSlice";
+import { clearCart } from "../../redux/cartSlice";
 export const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -30,6 +31,8 @@ export const Header = () => {
 
     // reset store
     dispatch(setUser({}));
+    // reset the cart
+    dispatch(clearCart());
     navigate("/login");
   };
 

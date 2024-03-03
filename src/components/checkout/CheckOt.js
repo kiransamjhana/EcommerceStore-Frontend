@@ -68,7 +68,7 @@ export const CheckOt = () => {
           </div>
         </div>
 
-        <div className="px-4 pt-8 mt-1">
+        <div className="px-4 pt-8 mt-3">
           <Elements stripe={stripePromise}>
             <PaymentForm />
           </Elements>

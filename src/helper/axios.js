@@ -2,7 +2,9 @@
 
 import axios from "axios";
 
-const rootAPI = process.env.REACT_APP_ROOTAPI;
+const rootAPI =
+  process.env.REACT_APP_ROOTAPI ||
+  "http://frontend-api-env.eba-tam9s2et.ap-southeast-2.elasticbeanstalk.com/api/v1/store ";
 const categoryAPI = rootAPI + "/catagory";
 const productAPI = rootAPI + "/product";
 const paymentAPI = rootAPI + "/payment";

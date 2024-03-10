@@ -1,6 +1,10 @@
+import { Rss } from "lucide-react";
 import React from "react";
 import { Link } from "react-router-dom";
-
+console.log(
+  "Image URL:",
+  process.env.REACT_APP_ROOTSERVER + item.thumbnail?.slice(6)
+);
 export const ProductCard = ({ item }) => {
   return (
     <li>
@@ -9,9 +13,9 @@ export const ProductCard = ({ item }) => {
         className="block overflow-hidden group"
       >
         <img
-          src={process.env.REACT_APP_ROOTSERVER + item.thumbnail?.slice(6)}
-          alt=""
-          className="h-[350px] w-full  object-contain transition duration-500 group-hover:scale-105 sm:h-[450px]"
+          src={process.env.REACT_APP_ROOTSERVER + item?.thumbnail?.slice(6)}
+          alt="img"
+          width="150px"
         />
 
         <div className="relative pt-3 bg-white">
